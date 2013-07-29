@@ -5,6 +5,7 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import Entity.Enemy;
+import Entity.HUD;
 import Entity.Player;
 import Entity.Enemies.Spikes;
 import Main.GamePanel;
@@ -19,6 +20,8 @@ public class Level1State extends GameState {
 	private Player player;
 	
 	private ArrayList<Enemy> enemies;
+	
+	private HUD hud;
 	
 	public Level1State(GameStateManager gsm) {
 		this.gsm = gsm;
@@ -43,7 +46,7 @@ public class Level1State extends GameState {
 		s = new Spikes(tileMap);
 		s.setPosition(100,100);
 		enemies.add(s);
-		
+		hud = new HUD(player);
 	}
 	
 	
@@ -80,6 +83,9 @@ public class Level1State extends GameState {
 		for(int i = 0; i < enemies.size(); i++){
 			enemies.get(i).draw(g);
 		}
+		
+		// draw HUD
+		hud.draw(g);
 		
 	}
 	
