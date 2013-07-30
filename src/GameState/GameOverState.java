@@ -1,19 +1,18 @@
 package GameState;
 
-import TileMap.Background;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class MenuState extends GameState {
+import Main.GamePanel;
+
+public class GameOverState extends GameState {
 	
-	private Background bg;
 	
 	private int currentChoice = 0;
 	private String[] options = {
-		"Start",
-		"Help",
-		"Quit"
+		"Continue",
+		"Exit"
 	};
 	
 	private Color titleColor;
@@ -21,42 +20,31 @@ public class MenuState extends GameState {
 	
 	private Font font;
 	
-	public MenuState(GameStateManager gsm) {
+	public GameOverState(GameStateManager gsm) {
 		
 		this.gsm = gsm;
-		
-		try {
+		titleColor = new Color(128, 0, 0);
+		titleFont = new Font("Eras Bold ITC", Font.PLAIN, 28);
 			
-			bg = new Background("/Backgrounds/menubg.gif", 1);
-			bg.setVector(-4, 0);
-			
-			titleColor = new Color(128, 0, 0);
-			titleFont = new Font("Eras Bold ITC", Font.PLAIN, 28);
-			
-			font = new Font("Eras Light ITC", Font.BOLD, 18);
-			
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
+		font = new Font("Eras Light ITC", Font.BOLD, 18);
 		
 	}
 	
 	public void init() {}
 	
 	public void update() {
-		bg.update();
 	}
 	
 	public void draw(Graphics2D g) {
 		
-		// draw bg
-		bg.draw(g);
+		// draw black screen
+		g.setColor(Color.BLACK);
+		g.fillRect(0, 0, GamePanel.WIDTH, GamePanel.HEIGHT);
 		
 		// draw title
 		g.setColor(titleColor);
 		g.setFont(titleFont);
-		g.drawString("Captain Ninja", 60, 70);
+		g.drawString("Game Over", 80 , 80);
 		
 		// draw menu options
 		g.setFont(font);
@@ -67,20 +55,17 @@ public class MenuState extends GameState {
 			else {
 				g.setColor(Color.RED);
 			}
-			g.drawString(options[i], 145, 140 + i * 20);
+			g.drawString(options[i], 120, 140 + i * 20);
 		}
 		
 	}
 	
 	private void select() {
 		if(currentChoice == 0) {
-			gsm.setState(GameStateManager.LOADINGSTATE);
+			gsm.setState(GameStateManager.getPreviousState());
 		}
 		if(currentChoice == 1) {
-			// help
-		}
-		if(currentChoice == 2) {
-			System.exit(0);
+			gsm.setState(GameStateManager.MENUSTATE);
 		}
 	}
 	

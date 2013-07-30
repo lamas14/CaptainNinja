@@ -10,12 +10,12 @@ import Entity.Enemy;
 import Entity.Explosion;
 import Entity.HUD;
 import Entity.Player;
-import Entity.Enemies.Spikes;
+import Entity.Enemies.Wolf;
 import Main.GamePanel;
 import TileMap.Background;
 import TileMap.TileMap;
 
-public class Level1State extends GameState {
+public class Level2State extends GameState {
 
 	private TileMap tileMap;
 	private Background bg;
@@ -30,7 +30,7 @@ public class Level1State extends GameState {
 
 	private ArrayList<Explosion> explosions;
 
-	public Level1State(GameStateManager gsm) {
+	public Level2State(GameStateManager gsm) {
 		this.gsm = gsm;
 		init();
 	}
@@ -39,11 +39,11 @@ public class Level1State extends GameState {
 
 		tileMap = new TileMap(30);
 		tileMap.loadTiles("/Tilesets/ninjatileset.gif");
-		tileMap.loadMap("/Maps/level1-1.map");
+		tileMap.loadMap("/Maps/level1-2.map");
 		tileMap.setPosition(0, 0);
 		tileMap.setTween(1);
 
-		bg = new Background("/Backgrounds/levelbg1.gif", 0.05);
+		bg = new Background("/Backgrounds/levelbg1.gif", 0.04);
 
 		player = new Player(tileMap);
 		player.setPosition(100, 100);
@@ -62,15 +62,15 @@ public class Level1State extends GameState {
 	private void populateEnemies() {
 		enemies = new ArrayList<Enemy>();
 
-		Spikes s;
+		Wolf w;
 
-		Point[] points = new Point[] { new Point(700, 80),
+		Point[] points = new Point[] { new Point(200,200), new Point(600, 80),
 				new Point(1400, 100), new Point(1360, 100),
-				new Point(2930, 80) };
+				new Point(1960, 80) };
 		for (int i = 0; i < points.length; i++) {
-			s = new Spikes(tileMap);
-			s.setPosition(points[i].x, points[i].y);
-			enemies.add(s);
+			w = new Wolf(tileMap);
+			w.setPosition(points[i].x, points[i].y);
+			enemies.add(w);
 		}
 	}
 
@@ -81,9 +81,9 @@ public class Level1State extends GameState {
 			gsm.setState(GameStateManager.GAMEOVERSTATE);
 		}
 		
-		if(player.getx() + 15 == 3210){
+		if(player.getx() + 11 == 4680){
 			bgMusic.stop();
-			gsm.setState(GameStateManager.LOADINGSTATE);
+			gsm.setState(GameStateManager.MENUSTATE);
 		}
 		
 		// update player

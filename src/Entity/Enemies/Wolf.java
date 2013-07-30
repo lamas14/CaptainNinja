@@ -9,16 +9,16 @@ import Entity.Animation;
 import Entity.Enemy;
 import TileMap.TileMap;
 
-public class Spikes extends Enemy {
+public class Wolf extends Enemy {
 
 	private BufferedImage[] sprites;
 
-	public Spikes(TileMap tm) {
+	public Wolf(TileMap tm) {
 
 		super(tm);
 
-		moveSpeed = 1;
-		maxSpeed = 1;
+		moveSpeed = 2;
+		maxSpeed = 2;
 		fallSpeed = 0.2;
 		maxFallSpeed = 10;
 
@@ -28,16 +28,16 @@ public class Spikes extends Enemy {
 		cwidth = 20;
 		cheight = 20;
 
-		health = maxHealth = 2;
+		health = maxHealth = 8;
 		damage = 1;
 
 		// load Sprites
 		try {
 
 			BufferedImage spritesheet = ImageIO.read(getClass()
-					.getResourceAsStream("/Sprites/Enemies/spikes.gif"));
+					.getResourceAsStream("/Sprites/Enemies/wolf.gif"));
 
-			sprites = new BufferedImage[3];
+			sprites = new BufferedImage[5];
 			for (int i = 0; i < sprites.length; i++) {
 				sprites[i] = spritesheet.getSubimage(i * width, 0, width,
 						height);
@@ -49,7 +49,7 @@ public class Spikes extends Enemy {
 		animation = new Animation();
 		animation.setFrames(sprites);
 		animation.setDelay(50);
-		
+
 		right = true;
 		facingRight = true;
 	}
